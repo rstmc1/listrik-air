@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>STRUK LISTRIK-AIR</title>
+
+<style>
+@font-face{
+  font-family:"LCDSolid";
+  src:url("LCD_Solid.ttf") format("truetype");
+}
+
+body{
+  font-family:LCDSolid;
+  background:#eee;
+}
+
+.paper{
+  width:220px;
+  margin:auto;
+  background:#fff;
+  padding:6px;
+  font-size:6px;
+  line-height:1.25;
+}
+
+.center{text-align:center;}
+
+.logo{
+  display:block;
+  margin:4px auto;
+  max-width:160px;
+  height:auto;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:72px 8px 22px 1fr;
+  align-items:center;
+  border-bottom:1px dotted #ccc;
+}
+
+.row.info{
+  grid-template-columns:72px 8px 22px 1fr;
+}
+
+.row.info span:nth-child(3){
+  display:none;
+}
+
+.row.info input,
+.row.info select{
+  grid-column:3 / 5;
+  text-align:left;
+  margin-left:0;
+}
+
+
+.colon{text-align:center;}
+.rp{text-align:left;}
+
+input,select{
+  border:none;
+  background:transparent;
+  font-family:LCDSolid;
+  font-size:6px;
+  width:100%;
+  text-align:left;
+}
+
+select{
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+}
+
+hr{
+  border:none;
+  border-top:1px dashed #000;
+  margin:4px 0;
+}
+
+button{
+  width:220px;
+  margin:10px auto;
+  display:block;
+  padding:6px;
+}
+
+@media print{
+  body{background:#fff;}
+  button{display:none;}
+  .row{border:none;}
+  .logo{max-width:160px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="paper">
+
+<!-- ✅ LOGO ATAS -->
+<img src="logo-atas.png" class="logo">
+
+<div class="center">
+BATU JAMUS<br>
+JL BATU JAMUS KEL MOJODOYONG<br>
+KEC KEDAWUNG KAB SRAGEN, 57292
+</div>
+
+<hr>
+<div class="center"><span id="tgl"></span>/4.1.5/TJRB-45372/NOVI /01</div>
+<hr>
+
+<div class="row info"><span>NO TRANS</span><span class="colon">:</span><span></span><input></div>
+<div class="row info"><span>ID PELANGGAN</span><span class="colon">:</span><span></span><input></div>
+<div class="row info"><span>NAMA</span><span class="colon">:</span><span></span><input></div>
+
+<div class="row info">
+<span>PERIODE</span><span class="colon">:</span><span></span>
+<select>
+<option>JANUARI</option><option>FEBRUARI</option><option>MARET</option>
+<option>APRIL</option><option>MEI</option><option>JUNI</option>
+<option>JULI</option><option>AGUSTUS</option><option>SEPTEMBER</option>
+<option>OKTOBER</option><option>NOVEMBER</option><option>DESEMBER</option>
+</select>
+</div>
+
+<div class="row"><span>TAGIHAN</span><span class="colon">:</span><span class="rp">Rp</span><input id="tagihan" class="uang"></div>
+<div class="row"><span>TOTAL TAGIHAN</span><span class="colon">:</span><span class="rp">Rp</span><input id="totalTagihan" readonly></div>
+<div class="row"><span>BIAYA ADMIN</span><span class="colon">:</span><span class="rp">Rp</span><input id="admin" class="uang"></div>
+<div class="row"><span>TOTAL BAYAR</span><span class="colon">:</span><span class="rp">Rp</span><input id="totalBayar" readonly></div>
+
+<hr>
+<div class="row"><span>TUNAI</span><span class="colon">:</span><span class="rp">Rp</span><input id="tunai" class="uang"></div>
+<div class="row"><span>KEMBALI</span><span class="colon">:</span><span class="rp">Rp</span><input id="kembali" readonly></div>
+<br>
+<div class="row info"><span>KET.</span><span class="colon">:</span><span></span><input></div>
+
+<!-- ✅ LOGO BAWAH -->
+<img src="logo-bawah.png" class="logo">
+
+</div>
+
+<button onclick="window.print()">PRINT</button>
+
+<script>
+
+/* tanggal */
+function tgl(){
+  let d=new Date();
+  let f=n=>n.toString().padStart(2,'0');
+  document.getElementById("tgl").textContent=
+    `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())} `+
+    `${f(d.getDate())}-${f(d.getMonth()+1)}-${d.getFullYear().toString().slice(-2)}`;
+}
+tgl();
+
+/* format uang */
+function clean(v){return v.replace(/[^\d]/g,'');}
+
+function format(v){
+  if(!v) return "";
+  return Number(v).toLocaleString("id-ID")+",-";
+}
+
+document.querySelectorAll(".uang").forEach(inp=>{
+  inp.addEventListener("input",()=>{
+    let raw=clean(inp.value);
+    inp.dataset.raw=raw;
+    inp.value=format(raw);
+    hitung();
+  });
+
+  inp.addEventListener("keydown",e=>{
+    if(e.key==="Backspace"){
+      let raw=inp.dataset.raw||"";
+      raw=raw.slice(0,-1);
+      inp.dataset.raw=raw;
+      inp.value=format(raw);
+      e.preventDefault();
+      hitung();
+    }
+  });
+});
+
+function angka(id){
+  return parseInt(document.getElementById(id).dataset.raw||0);
+}
+
+function set(id,val){
+  document.getElementById(id).value=format(val);
+}
+
+function hitung(){
+  let tagihan=angka("tagihan");
+  let admin=angka("admin");
+  let tunai=angka("tunai");
+
+  let total=tagihan+admin;
+  let kembali=tunai-total;
+
+  set("totalTagihan",tagihan);
+  set("totalBayar",total);
+  set("kembali",kembali>0?kembali:0);
+}
+
+</script>
+
+</body>
+</html>
