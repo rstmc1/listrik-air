@@ -88,28 +88,29 @@ button{
 }
 
 @media print{
-  body{
-    margin:0;
-    padding-top:10mm;   /* dorong isi turun */
-  }
-
-  .paper{
-    padding-top:0;
-  }
 
   @page{
     margin:0;
   }
 
+  body{
+    margin:0;
+  }
+
+  .paper{
+    margin-top:12mm;   /* dorong dari atas */
+    padding-top:0;
+  }
+
   button{display:none;}
   .row{border:none;}
-  .logo{max-width:250px;}
 }
+
 </style>
 </head>
 
 <body>
-<div style="height:10mm;"></div>
+
 <div class="paper">
 
 <!-- ✅ LOGO ATAS -->
@@ -222,6 +223,7 @@ function hitung(){
 
 </body>
 </html>
+
 
 
 
