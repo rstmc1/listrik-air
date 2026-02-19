@@ -87,7 +87,12 @@ button{
   padding:6px;
 }
 
+.eppos-top{
+  height:16mm;   /* khusus EPPOS supaya tidak kepotong */
+}
+
 @media print{
+
   @page{
     margin:0;
   }
@@ -99,17 +104,14 @@ button{
   button{display:none;}
   .row{border:none;}
 }
-.top-space{
-  height:12mm;
-}
-
 </style>
 </head>
 
 <body>
-
+  
 <div class="paper">
-<div class="top-space"></div>
+
+<div class="eppos-top"></div>
 
 <!-- ✅ LOGO ATAS -->
 <img src="logo-atas.png" class="logo">
@@ -221,6 +223,7 @@ function hitung(){
 
 </body>
 </html>
+
 
 
 
