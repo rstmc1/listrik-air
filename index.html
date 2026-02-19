@@ -29,7 +29,7 @@ body{
 .logo{
   display:block;
   margin:4px auto;
-  max-width:280px;
+  max-width:250px;
   height:auto;
 }
 
@@ -88,10 +88,22 @@ button{
 }
 
 @media print{
-  body{background:#fff;}
+  body{
+    margin:0;
+    padding-top:10mm;   /* dorong isi turun */
+  }
+
+  .paper{
+    padding-top:0;
+  }
+
+  @page{
+    margin:0;
+  }
+
   button{display:none;}
   .row{border:none;}
-  .logo{max-width:160px;}
+  .logo{max-width:250px;}
 }
 </style>
 </head>
@@ -210,5 +222,6 @@ function hitung(){
 
 </body>
 </html>
+
 
 
