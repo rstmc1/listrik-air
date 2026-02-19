@@ -88,7 +88,6 @@ button{
 }
 
 @media print{
-
   @page{
     margin:0;
   }
@@ -97,13 +96,11 @@ button{
     margin:0;
   }
 
-  .paper{
-    margin-top:12mm;   /* dorong dari atas */
-    padding-top:0;
-  }
-
   button{display:none;}
   .row{border:none;}
+}
+.top-space{
+  height:12mm;
 }
 
 </style>
@@ -112,6 +109,7 @@ button{
 <body>
 
 <div class="paper">
+<div class="top-space"></div>
 
 <!-- ✅ LOGO ATAS -->
 <img src="logo-atas.png" class="logo">
@@ -223,6 +221,7 @@ function hitung(){
 
 </body>
 </html>
+
 
 
 
