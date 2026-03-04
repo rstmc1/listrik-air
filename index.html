@@ -63,7 +63,14 @@ input,select{
   width:100%;
   text-align:left;
 }
-
+.tgl{
+  border:none;
+  background:transparent;
+  font-family:monospace;
+  font-size:10px;
+  width:60px;
+  text-align:center;
+}
 select{
   appearance:none;
   -webkit-appearance:none;
@@ -113,7 +120,7 @@ KEC KEDAWUNG KAB SRAGEN, 57292
 </div>
 
 <hr>
-<div class="center"><span id="tgl"></span>/4.1.5/TJRB-45372/NOVI /01</div>
+<div class="center"><span id="jam"></span><input id="tanggal" class="tgl">/4.1.5/TJRB-45372/NOVI /01</div>
 <hr>
 
 <div class="row info"><span>NO TRANS</span><span class="colon">:</span><span></span><input></div>
@@ -151,14 +158,18 @@ KEC KEDAWUNG KAB SRAGEN, 57292
 <script>
 
 /* tanggal */
-function tgl(){
+function waktu(){
   let d=new Date();
   let f=n=>n.toString().padStart(2,'0');
-  document.getElementById("tgl").textContent=
-    `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())} `+
-    `${f(d.getDate())}-${f(d.getMonth()+1)}-${d.getFullYear().toString().slice(-2)}`;
+
+  let jam = `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())}`;
+  let tanggal = `${f(d.getDate())}-${f(d.getMonth()+1)}-${d.getFullYear().toString().slice(-2)}`;
+
+  document.getElementById("jam").textContent = jam;
+  document.getElementById("tanggal").value = tanggal;
 }
-tgl();
+
+waktu();
 
 /* format uang */
 function clean(v){return v.replace(/[^\d]/g,'');}
@@ -213,6 +224,7 @@ function hitung(){
 
 </body>
 </html>
+
 
 
 
