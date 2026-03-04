@@ -13,6 +13,7 @@ body{
 
 .paper{
   width:220px;
+  max-width:220px;
   margin:auto;
   background:#fff;
   padding:30px 6px 6px 6px; /* FIX RAWBT agar tidak kepotong */
@@ -31,11 +32,13 @@ body{
 
 .row{
   display:grid;
-  grid-template-columns:72px 10px 22px 1fr;
+  grid-template-columns:95px 10px 22px 1fr;
   align-items:center;
   border-bottom:1px dotted #ccc;
 }
-
+.row span:first-child{
+  white-space:nowrap;
+}
 .row.info{
   grid-template-columns:72px 10px 22px 1fr;
 }
@@ -224,6 +227,7 @@ function hitung(){
 
 </body>
 </html>
+
 
 
 
