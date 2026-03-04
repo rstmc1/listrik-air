@@ -49,7 +49,10 @@ body{
   text-align:left;
   margin-left:0;
 }
-
+.left input,
+.left select{
+  text-align:left;
+}
 
 .colon{text-align:center;}
 .rp{text-align:left;}
@@ -122,11 +125,11 @@ KEC KEDAWUNG KAB SRAGEN, 57292
 <div class="center"><span id="jam"></span><input id="tanggal" class="tgl">/4.1.5/TJRB-45372/NOVI /01</div>
 <hr>
 
-<div class="row"><span>NO TRANS</span><span class="colon">:</span><span></span><input></div>
-<div class="row"><span>ID PELANGGAN</span><span class="colon">:</span><span></span><input></div>
-<div class="row"><span>NAMA</span><span class="colon">:</span><span></span><input></div>
+<div class="row left"><span>NO TRANS</span><span class="colon">:</span><span></span><input></div>
+<div class="row left"><span>ID PELANGGAN</span><span class="colon">:</span><span></span><input></div>
+<div class="row left"><span>NAMA</span><span class="colon">:</span><span></span><input></div>
 
-<div class="row">
+<div class="row left">
 <span>PERIODE</span><span class="colon">:</span><span></span>
 <select>
 <option>JANUARI</option><option>FEBRUARI</option><option>MARET</option>
@@ -145,7 +148,7 @@ KEC KEDAWUNG KAB SRAGEN, 57292
 <div class="row"><span>TUNAI</span><span class="colon">:</span><span class="rp">Rp</span><input id="tunai" class="uang"></div>
 <div class="row"><span>KEMBALI</span><span class="colon">:</span><span class="rp">Rp</span><input id="kembali" readonly></div>
 <br>
-<div class="row"><span>Merchant/Bill</span><span class="colon">:</span><span></span><input></div>
+<div class="row left"><span>Merchant/Bill</span><span class="colon">:</span><span></span><input></div>
 
 <!-- ✅ LOGO BAWAH -->
 <img src="logo-bawah.png" class="logo">
@@ -223,6 +226,7 @@ function hitung(){
 
 </body>
 </html>
+
 
 
 
